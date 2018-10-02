@@ -1,7 +1,6 @@
-package net.livecar.NuttyWorks.nuBeton_JobsReborn_V1_8.Objectives;
+package net.livecar.NuttyWorks.nuBeton_JobsReborn_V1_9.Objectives;
 
-import net.livecar.NuttyWorks.nuBeton_JobsReborn.BetonJobsReborn;
-
+import net.livecar.NuttyWorks.nuBeton_JobsReborn_V1_9.BetonJobsReborn_V1_9;
 import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.HandlerList;
@@ -11,6 +10,7 @@ import com.gamingmesh.jobs.Jobs;
 import com.gamingmesh.jobs.api.JobsLeaveEvent;
 import com.gamingmesh.jobs.container.Job;
 
+import pl.betoncraft.betonquest.Instruction;
 import pl.betoncraft.betonquest.InstructionParseException;
 import pl.betoncraft.betonquest.api.Objective;
 import pl.betoncraft.betonquest.utils.PlayerConverter;
@@ -19,23 +19,22 @@ public class Objective_LeaveJob extends Objective implements Listener
 {
 	private final String sJobName;
 	
-	public Objective_LeaveJob(String packName, String label, String instructions) throws InstructionParseException 
+	public Objective_LeaveJob(Instruction instructions) throws InstructionParseException 
 	{
-        super(packName, label, instructions);
+        super(instructions);
         template = ObjectiveData.class;
-		String[] sParts = instructions.split(" ");
-		if (sParts.length < 2) {
+		if (instructions.size() < 2) {
 			throw new InstructionParseException("Not enough arguments");
 		}
 		for (Job job : Jobs.getJobs()) 
 		{
-			if (job.getName().equalsIgnoreCase(sParts[1]))
+			if (job.getName().equalsIgnoreCase(instructions.getPart(1)))
 			{
 				sJobName = job.getName();
 				return;
 			}
 		}
-		throw new InstructionParseException("Jobs Reborn job " + sParts[1] + " does not exist" );
+		throw new InstructionParseException("Jobs Reborn job " + instructions.getPart(1) + " does not exist" );
     }
 	
 	@EventHandler
@@ -52,7 +51,7 @@ public class Objective_LeaveJob extends Objective implements Listener
     
     @Override
     public void start() {
-        Bukkit.getPluginManager().registerEvents(this, BetonJobsReborn.Instance);
+        Bukkit.getPluginManager().registerEvents(this, BetonJobsReborn_V1_9.getPlugin());
     }
 
     @Override

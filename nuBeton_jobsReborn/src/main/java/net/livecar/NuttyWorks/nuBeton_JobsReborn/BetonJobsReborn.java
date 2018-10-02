@@ -1,5 +1,6 @@
 package net.livecar.NuttyWorks.nuBeton_JobsReborn;
 
+import net.livecar.NuttyWorks.BetonQuestPlugin;
 import org.bukkit.ChatColor;
 
 import net.livecar.NuttyWorks.nuBeton_JobsReborn_V1_8.BetonJobsReborn_V1_8;
@@ -8,6 +9,7 @@ import net.livecar.NuttyWorks.nuBeton_JobsReborn_V1_9.BetonJobsReborn_V1_9;
 public class BetonJobsReborn extends org.bukkit.plugin.java.JavaPlugin implements org.bukkit.event.Listener 
 {
 	public static BetonJobsReborn Instance;
+	private BetonQuestPlugin bqPlugin;
 	
 	@SuppressWarnings("unused")
 	public void onEnable() 
@@ -15,10 +17,10 @@ public class BetonJobsReborn extends org.bukkit.plugin.java.JavaPlugin implement
 		//Get version 1.8.x or 1.9x
 		if (getServer().getPluginManager().getPlugin("BetonQuest").getDescription().getVersion().startsWith("1.8"))
 		{
-			BetonJobsReborn_V1_8 bqPlugin8 = new BetonJobsReborn_V1_8();
+			bqPlugin = new BetonJobsReborn_V1_8(this);
 		} else if (getServer().getPluginManager().getPlugin("BetonQuest").getDescription().getVersion().startsWith("1.9") || getServer().getPluginManager().getPlugin("BetonQuest").getDescription().getVersion().startsWith("1.10"))
 		{
-			BetonJobsReborn_V1_9 bqPlugin9 = new BetonJobsReborn_V1_9();
+			bqPlugin = new BetonJobsReborn_V1_9(this);
 		}
 
 

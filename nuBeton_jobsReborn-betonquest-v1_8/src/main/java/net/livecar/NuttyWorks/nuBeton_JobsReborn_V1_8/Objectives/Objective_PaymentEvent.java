@@ -1,7 +1,6 @@
 package net.livecar.NuttyWorks.nuBeton_JobsReborn_V1_8.Objectives;
 
-import net.livecar.NuttyWorks.nuBeton_JobsReborn.BetonJobsReborn;
-
+import net.livecar.NuttyWorks.nuBeton_JobsReborn_V1_8.BetonJobsReborn_V1_8;
 import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.HandlerList;
@@ -52,7 +51,7 @@ public class Objective_PaymentEvent extends Objective implements Listener
     
     @Override
     public void start() {
-        Bukkit.getPluginManager().registerEvents(this, BetonJobsReborn.Instance);
+        Bukkit.getPluginManager().registerEvents(this, BetonJobsReborn_V1_8.getPlugin());
     }
 
     @Override

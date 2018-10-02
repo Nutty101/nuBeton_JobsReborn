@@ -1,5 +1,6 @@
 package net.livecar.NuttyWorks.nuBeton_JobsReborn_V1_9.Objectives;
 
+import net.livecar.NuttyWorks.nuBeton_JobsReborn_V1_9.BetonJobsReborn_V1_9;
 import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.HandlerList;
@@ -9,7 +10,6 @@ import com.gamingmesh.jobs.Jobs;
 import com.gamingmesh.jobs.api.JobsJoinEvent;
 import com.gamingmesh.jobs.container.Job;
 
-import net.livecar.NuttyWorks.nuBeton_JobsReborn.BetonJobsReborn;
 import pl.betoncraft.betonquest.Instruction;
 import pl.betoncraft.betonquest.InstructionParseException;
 import pl.betoncraft.betonquest.api.Objective;
@@ -51,7 +51,7 @@ public class Objective_JoinJob extends Objective implements Listener
     
     @Override
     public void start() {
-        Bukkit.getPluginManager().registerEvents(this, BetonJobsReborn.Instance);
+        Bukkit.getPluginManager().registerEvents(this, BetonJobsReborn_V1_9.getPlugin());
     }
 
     @Override

@@ -1,46 +1,46 @@
-package net.livecar.NuttyWorks.nuBeton_JobsReborn_V1_8.Objectives;
+package net.livecar.NuttyWorks.nuBeton_JobsReborn_V1_9.Objectives;
 
+import net.livecar.NuttyWorks.nuBeton_JobsReborn_V1_9.BetonJobsReborn_V1_9;
 import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;
 
 import com.gamingmesh.jobs.Jobs;
-import com.gamingmesh.jobs.api.JobsJoinEvent;
+import com.gamingmesh.jobs.api.JobsLevelUpEvent;
 import com.gamingmesh.jobs.container.Job;
 
-import net.livecar.NuttyWorks.nuBeton_JobsReborn.BetonJobsReborn;
+import pl.betoncraft.betonquest.Instruction;
 import pl.betoncraft.betonquest.InstructionParseException;
 import pl.betoncraft.betonquest.api.Objective;
 import pl.betoncraft.betonquest.utils.PlayerConverter;
 
-public class Objective_JoinJob extends Objective implements Listener 
+public class Objective_LevelUpEvent extends Objective implements Listener 
 {
 	private final String sJobName;
 	
-	public Objective_JoinJob(String packName, String label, String instructions) throws InstructionParseException 
+	public Objective_LevelUpEvent(Instruction instructions) throws InstructionParseException 
 	{
-        super(packName, label, instructions);
+        super(instructions);
         template = ObjectiveData.class;
-		String[] sParts = instructions.split(" ");
-		if (sParts.length < 2) {
+		if (instructions.size() < 2) {
 			throw new InstructionParseException("Not enough arguments");
 		}
 		for (Job job : Jobs.getJobs()) 
 		{
-			if (job.getName().equalsIgnoreCase(sParts[1]))
+			if (job.getName().equalsIgnoreCase(instructions.getPart(1)))
 			{
 				sJobName = job.getName();
 				return;
 			}
 		}
-		throw new InstructionParseException("Jobs Reborn job " + sParts[1] + " does not exist" );
+		throw new InstructionParseException("Jobs Reborn job " + instructions.getPart(1) + " does not exist" );
     }
 	
 	@EventHandler
-    public void onJobsJoinEvent(JobsJoinEvent event) 
+    public void onJobsLevelUpEvent(JobsLevelUpEvent event) 
 	{
-		if (event.getJob().getName().equalsIgnoreCase(this.sJobName))
+		if (event.getJobName().equalsIgnoreCase(this.sJobName))
 		{
 			String playerID = PlayerConverter.getID(event.getPlayer().getPlayer().getPlayer());
             if (containsPlayer(playerID) && checkConditions(playerID)) {
@@ -51,7 +51,7 @@ public class Objective_JoinJob extends Objective implements Listener
     
     @Override
     public void start() {
-        Bukkit.getPluginManager().registerEvents(this, BetonJobsReborn.Instance);
+        Bukkit.getPluginManager().registerEvents(this, BetonJobsReborn_V1_9.getPlugin());
     }
 
     @Override
